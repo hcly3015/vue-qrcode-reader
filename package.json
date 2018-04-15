@@ -8,16 +8,13 @@
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "github-pagify": "node ./node_modules/vue-gh-pages/index.js",
-    "move-build": "rm -r ../static ../index.html; mv ./docs/* ..; rm -r ./docs",
-    "full-build": "npm run github-pagify; npm run move-build",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "lodash": "^4.17.4",
     "vue": "^2.5.2",
-    "vue-qrcode-reader": "^0.7.0"
+    "vue-qrcode-reader": "^0.7.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -58,7 +55,6 @@
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
     "url-loader": "^0.5.8",
-    "vue-gh-pages": "^1.5.0",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",

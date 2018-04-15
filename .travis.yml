@@ -1,0 +1,21 @@
+language: node_js
+node_js: "6"
+
+install:
+  - yarn install
+
+script:
+  - yarn run build
+  - sed -i -r 's/(src|href)=\//\1=/g' dist/index.html
+
+cache: yarn
+
+deploy:
+  provider: pages
+  local-dir: dist
+  target-branch: gh-pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: gh-pages-src
