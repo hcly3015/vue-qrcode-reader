@@ -2980,9 +2980,9 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-jsqr@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/jsqr/-/jsqr-0.2.2.tgz#8c1f0279fb7c94542aaa9e8aeb7c722d523ea092"
+jsqr@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/jsqr/-/jsqr-1.0.4.tgz#e2ea353fa81007708efab7d95b2652a7254c10dd"
 
 kind-of@^2.0.1:
   version "2.0.1"
@@ -5122,20 +5122,11 @@ vue-loader@^13.3.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
-vue-qrcode-reader@/home/niklas/workspace/vue/vue-qrcode-reader:
-  version "0.7.1"
+"vue-qrcode-reader@file:../../vue-qrcode-reader":
+  version "0.8.0"
   dependencies:
     babel-runtime "^6.26.0"
-    jsqr "^0.2.2"
-    lodash "^4.17.4"
-    webrtc-adapter "^6.1.0"
-
-vue-qrcode-reader@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/vue-qrcode-reader/-/vue-qrcode-reader-0.7.0.tgz#4afcbe97625c391f8bc9a132db268baf24ca6bc8"
-  dependencies:
-    babel-runtime "^6.26.0"
-    jsqr "^0.2.2"
+    jsqr "^1.0.4"
     lodash "^4.17.4"
     webrtc-adapter "^6.0.2"
 
@@ -5247,13 +5238,6 @@ webpack@^3.6.0:
 webrtc-adapter@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-6.0.2.tgz#765f99c163e46046a758fec457f7859c90a19487"
-  dependencies:
-    rtcpeerconnection-shim "^1.1.13"
-    sdp "^2.3.0"
-
-webrtc-adapter@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-6.1.0.tgz#238ad8c510558798d4dd8978aaf80e2675bbc1ea"
   dependencies:
     rtcpeerconnection-shim "^1.1.13"
     sdp "^2.3.0"
