@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import TheTrackLocationDemo from '@/components/demos/TheTrackLocationDemo'
+import TheCustomTrackingDemo from '@/components/demos/TheCustomTrackingDemo'
 import TheDecodeAllDemo from '@/components/demos/TheDecodeAllDemo'
 import TheFirstResultDemo from '@/components/demos/TheFirstResultDemo'
 import TheValidateDemo from '@/components/demos/TheValidateDemo'
@@ -76,8 +76,8 @@ export default {
         title: 'First result only',
         component: 'TheFirstResultDemo'
       }, {
-        title: 'Track location',
-        component: 'TheTrackLocationDemo'
+        title: 'Custom location tracking',
+        component: 'TheCustomTrackingDemo'
       }, {
         title: 'Validate',
         component: 'TheValidateDemo'
@@ -95,7 +95,7 @@ export default {
   },
 
   components: {
-    TheTrackLocationDemo,
+    TheCustomTrackingDemo,
     TheDecodeAllDemo,
     TheFirstResultDemo,
     TheValidateDemo,
