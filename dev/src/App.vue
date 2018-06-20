@@ -63,6 +63,7 @@ import TheDecodeAllDemo from '@/components/demos/TheDecodeAllDemo'
 import TheFirstResultDemo from '@/components/demos/TheFirstResultDemo'
 import TheValidateDemo from '@/components/demos/TheValidateDemo'
 import TheSwitchCameraDemo from '@/components/demos/TheSwitchCameraDemo'
+import TheNoTrackingDemo from '@/components/demos/TheNoTrackingDemo'
 
 export default {
   name: 'app',
@@ -72,6 +73,9 @@ export default {
       {
         title: 'Decode all',
         component: 'TheDecodeAllDemo'
+      }, {
+        title: 'No Tracking',
+        component: 'TheNoTrackingDemo'
       }, {
         title: 'First result only',
         component: 'TheFirstResultDemo'
@@ -99,7 +103,8 @@ export default {
     TheDecodeAllDemo,
     TheFirstResultDemo,
     TheValidateDemo,
-    TheSwitchCameraDemo
+    TheSwitchCameraDemo,
+    TheNoTrackingDemo
   },
 
   watch: {
