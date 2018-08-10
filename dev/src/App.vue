@@ -64,6 +64,7 @@ import TheFirstResultDemo from '@/components/demos/TheFirstResultDemo'
 import TheValidateDemo from '@/components/demos/TheValidateDemo'
 import TheSwitchCameraDemo from '@/components/demos/TheSwitchCameraDemo'
 import TheNoTrackingDemo from '@/components/demos/TheNoTrackingDemo'
+import TheDragDropDemo from '@/components/demos/TheDragDropDemo'
 
 export default {
   name: 'app',
@@ -71,23 +72,26 @@ export default {
   data () {
     const demos = [
       {
-        title: 'Decode all',
+        title: 'decode all',
         component: 'TheDecodeAllDemo'
       }, {
-        title: 'No Tracking',
+        title: 'no location tracking',
         component: 'TheNoTrackingDemo'
       }, {
-        title: 'First result only',
-        component: 'TheFirstResultDemo'
-      }, {
-        title: 'Custom location tracking',
+        title: 'custom location tracking',
         component: 'TheCustomTrackingDemo'
       }, {
-        title: 'Validate',
+        title: 'first result only',
+        component: 'TheFirstResultDemo'
+      }, {
+        title: 'validation',
         component: 'TheValidateDemo'
       }, {
-        title: 'Switch Camera',
+        title: 'switch camera',
         component: 'TheSwitchCameraDemo'
+      }, {
+        title: 'drap and drop',
+        component: 'TheDragDropDemo'
       }
     ]
 
@@ -104,7 +108,8 @@ export default {
     TheFirstResultDemo,
     TheValidateDemo,
     TheSwitchCameraDemo,
-    TheNoTrackingDemo
+    TheNoTrackingDemo,
+    TheDragDropDemo
   },
 
   watch: {
