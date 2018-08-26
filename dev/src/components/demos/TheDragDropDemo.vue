@@ -1,6 +1,6 @@
 <template>
   <div class="drag-and-drop-demo">
-    <QrcodeReader @detect="onDetect" :video-constraints="false">
+    <QrcodeReader @detect="onDetect" :camera="false">
       <div class="drop-area">
 
         <div class="drop-area__info" v-if="content === null">

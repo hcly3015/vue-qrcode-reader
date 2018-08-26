@@ -61,7 +61,8 @@
 import TheCustomTrackingDemo from '@/components/demos/TheCustomTrackingDemo'
 import TheDecodeAllDemo from '@/components/demos/TheDecodeAllDemo'
 import TheFirstResultDemo from '@/components/demos/TheFirstResultDemo'
-import TheValidateDemo from '@/components/demos/TheValidateDemo'
+import TheValidateHardDemo from '@/components/demos/TheValidateHardDemo'
+import TheValidateSoftDemo from '@/components/demos/TheValidateSoftDemo'
 import TheSwitchCameraDemo from '@/components/demos/TheSwitchCameraDemo'
 import TheNoTrackingDemo from '@/components/demos/TheNoTrackingDemo'
 import TheDragDropDemo from '@/components/demos/TheDragDropDemo'
@@ -84,8 +85,11 @@ export default {
         title: 'first result only',
         component: 'TheFirstResultDemo'
       }, {
-        title: 'validation',
-        component: 'TheValidateDemo'
+        title: 'validation (soft)',
+        component: 'TheValidateSoftDemo'
+      }, {
+        title: 'validation (hard)',
+        component: 'TheValidateHardDemo'
       }, {
         title: 'switch camera',
         component: 'TheSwitchCameraDemo'
@@ -106,7 +110,8 @@ export default {
     TheCustomTrackingDemo,
     TheDecodeAllDemo,
     TheFirstResultDemo,
-    TheValidateDemo,
+    TheValidateHardDemo,
+    TheValidateSoftDemo,
     TheSwitchCameraDemo,
     TheNoTrackingDemo,
     TheDragDropDemo

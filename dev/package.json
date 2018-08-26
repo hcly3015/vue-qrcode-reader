@@ -17,7 +17,7 @@
     "bootstrap": "^4.0.0-beta",
     "lodash": "^4.17.4",
     "vue": "^2.5.2",
-    "vue-qrcode-reader": "/home/niklas/workspace/vue/vue-qrcode-reader"
+    "vue-qrcode-reader": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

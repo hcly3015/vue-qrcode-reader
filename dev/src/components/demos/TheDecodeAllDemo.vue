@@ -12,6 +12,8 @@
 import { QrcodeReader } from 'vue-qrcode-reader'
 import InitHandler from '@/mixins/InitHandler'
 
+console.log(QrcodeReader)
+
 export default {
   components: { QrcodeReader },
 

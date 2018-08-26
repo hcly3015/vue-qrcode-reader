@@ -46,20 +46,41 @@ export default {
   },
 
   methods: {
-    onDecode (content) {
+
+    async onDecode (content) {
       this.content = content
-      this.paused = true
+
+      this.pauseCamera()
+
       this.validating = true
+      this.isValid = await this.validate(content)
+      this.validating = false
 
-      window.setTimeout(() => { // simulate long validation
-        this.isValid = content.startsWith('http')
-        this.validating = false
+      window.setTimeout(() => {
+        this.unPauseCamera()
+      }, 2000)
+    },
 
-        window.setTimeout(() => {
-          this.paused = false
-        }, 2000)
-      }, 3000)
+    pauseCamera () {
+      this.paused = true
+    },
+
+    unPauseCamera () {
+      this.paused = false
+    },
+
+    validate (content) {
+      return new Promise(resolve => {
+        window.setTimeout(() => { // pretend it's taking really long
+          if (content.startsWith('http')) {
+            resolve(true)
+          } else {
+            resolve(false)
+          }
+        }, 3000)
+      })
     }
+
   }
 }
 </script>
