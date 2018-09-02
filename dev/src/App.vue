@@ -123,7 +123,21 @@ export default {
 
   methods: {
     openError (error) {
-      this.errors.push(error)
+      if (error.name === 'NotAllowedError') {
+        this.errors.push('To detect and decode QR codes this page needs access to your camera')
+      } else if (error.name === 'NotFoundError') {
+        this.errors.push('Seems like you have no suitable camera on your device.')
+      } else if (error.name === 'NotSupportedError') {
+        this.errors.push('Seems like this page is served in non-secure context. Your browser doesn\'t support that')
+      } else if (error.name === 'NotReadableError') {
+        this.errors.push('Couldn\'t access your camera. Is it already in use?')
+      } else if (error.name === 'OverconstrainedError') {
+        this.errors.push('Constraints don\'t match any installed camera. Did you asked for the front camera although there is none?')
+      } else {
+        this.errors.push('UNKNOWN ERROR: ' + error.message)
+
+        console.error(error)
+      }
     },
 
     closeError (error) {
