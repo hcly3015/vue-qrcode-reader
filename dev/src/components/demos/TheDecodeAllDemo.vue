@@ -1,49 +1,27 @@
 <template>
-  <QrcodeReader
-    @decode="onDecode"
-    @init="onInit">
-    <div class="decoded-content">{{ content }}</div>
+  <div>
+    <p class="one-line">Last result: <b>{{ result }}</b></p>
 
-    <LoadingIndicator v-show="loading" />
-  </QrcodeReader>
+    <qrcode-stream @decode="onDecode" @init="$emit('init', $event)" />
+  </div>
 </template>
 
 <script>
-import { QrcodeReader } from 'vue-qrcode-reader'
-import InitHandler from '@/mixins/InitHandler'
-
-console.log(QrcodeReader)
+import { QrcodeStream } from 'vue-qrcode-reader'
 
 export default {
-  components: { QrcodeReader },
-
-  mixins: [ InitHandler ],
+  components: { QrcodeStream },
 
   data () {
     return {
-      content: ''
+      result: ''
     }
   },
 
   methods: {
-    onDecode (content) {
-      this.content = content
+    onDecode (result) {
+      this.result = result
     }
   }
 }
 </script>
-
-<style scoped>
-.decoded-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  max-width: 100%;
-
-  color: #fff;
-  font-weight: bold;
-  padding: 10px;
-  background-color: rgba(0,0,0,.5);
-}
-</style>

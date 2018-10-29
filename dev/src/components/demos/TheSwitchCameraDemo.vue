@@ -1,23 +1,21 @@
 <template>
-  <QrcodeReader
-    :camera="camera"
-    @init="onInit">
-    <button class="btn btn-secondary btn-lg switch-button" @click="switchCamera">
-      <i class="fa fa-camera"></i> Switch
-    </button>
+  <div>
+    <p>You can also allow users to choose the front or rear camera on their
+    device.</p>
 
-    <LoadingIndicator v-show="loading" />
-  </QrcodeReader>
+    <qrcode-stream :camera="camera" @init="$emit('init', $event)">
+      <button class="btn btn-secondary btn-lg switch-button" @click="switchCamera">
+        <i class="fa fa-camera"></i> Switch
+      </button>
+    </qrcode-stream>
+  </div>
 </template>
 
 <script>
-import { QrcodeReader } from 'vue-qrcode-reader'
-import InitHandler from '@/mixins/InitHandler'
+import { QrcodeStream } from 'vue-qrcode-reader'
 
 export default {
-  components: { QrcodeReader },
-
-  mixins: [ InitHandler ],
+  components: { QrcodeStream },
 
   data () {
     return {

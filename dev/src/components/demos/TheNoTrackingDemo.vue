@@ -1,49 +1,30 @@
 <template>
-  <QrcodeReader
-    :track="false"
-    @decode="onDecode"
-    @init="onInit">
-    <div class="decoded-content">{{ content }}</div>
+  <div>
+    <p>QR-codes are not visually tracked in this demo. Do you notice better
+    performance on your device?</p>
 
-    <LoadingIndicator v-show="loading" />
-  </QrcodeReader>
+    <p class="one-line">Last result: <b>{{ result }}</b></p>
+
+    <qrcode-stream :track="false" @decode="onDecode" @init="$emit('init', $event)" />
+  </div>
 </template>
 
 <script>
 import { QrcodeReader } from 'vue-qrcode-reader'
-import InitHandler from '@/mixins/InitHandler'
 
 export default {
   components: { QrcodeReader },
 
-  mixins: [ InitHandler ],
-
   data () {
     return {
-      content: ''
+      result: ''
     }
   },
 
   methods: {
-    onDecode (content) {
-      this.content = content
+    onDecode (result) {
+      this.result = result
     }
   }
 }
 </script>
-
-<style scoped>
-.decoded-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  max-width: 100%;
-
-  padding: 0px 20px;
-  color: #fff;
-  font-weight: bold;
-  padding: 10px;
-  background-color: rgba(0,0,0,.5);
-}
-</style>

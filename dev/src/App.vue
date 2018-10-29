@@ -52,7 +52,9 @@
         </button>
       </div>
 
-      <Component :is="selectedDemo" @error="openError" @success="clearErrors" />
+      <component :is="selectedDemo" @init="onInit" />
+
+      <loading-indicator v-show="loading" />
     </div>
   </div>
 </template>
@@ -60,15 +62,31 @@
 <script>
 import TheCustomTrackingDemo from '@/components/demos/TheCustomTrackingDemo'
 import TheDecodeAllDemo from '@/components/demos/TheDecodeAllDemo'
-import TheFirstResultDemo from '@/components/demos/TheFirstResultDemo'
 import TheValidateHardDemo from '@/components/demos/TheValidateHardDemo'
 import TheValidateSoftDemo from '@/components/demos/TheValidateSoftDemo'
 import TheSwitchCameraDemo from '@/components/demos/TheSwitchCameraDemo'
 import TheNoTrackingDemo from '@/components/demos/TheNoTrackingDemo'
 import TheDragDropDemo from '@/components/demos/TheDragDropDemo'
+import TheUploadDemo from '@/components/demos/TheUploadDemo'
+import TheFallbackDemo from '@/components/demos/TheFallbackDemo'
+
+import LoadingIndicator from '@/components/LoadingIndicator'
 
 export default {
-  name: 'app',
+
+  components: {
+    LoadingIndicator,
+
+    TheCustomTrackingDemo,
+    TheDecodeAllDemo,
+    TheValidateHardDemo,
+    TheValidateSoftDemo,
+    TheSwitchCameraDemo,
+    TheNoTrackingDemo,
+    TheDragDropDemo,
+    TheUploadDemo,
+    TheFallbackDemo
+  },
 
   data () {
     const demos = [
@@ -82,9 +100,6 @@ export default {
         title: 'custom location tracking',
         component: 'TheCustomTrackingDemo'
       }, {
-        title: 'first result only',
-        component: 'TheFirstResultDemo'
-      }, {
         title: 'validation (soft)',
         component: 'TheValidateSoftDemo'
       }, {
@@ -96,25 +111,21 @@ export default {
       }, {
         title: 'drap and drop',
         component: 'TheDragDropDemo'
+      }, {
+        title: 'upload and capture',
+        component: 'TheUploadDemo'
+      }, {
+        title: 'fallbacks',
+        component: 'TheFallbackDemo'
       }
     ]
 
     return {
       selectedDemo: demos[0].component,
       demos,
-      errors: []
+      errors: [],
+      loading: false
     }
-  },
-
-  components: {
-    TheCustomTrackingDemo,
-    TheDecodeAllDemo,
-    TheFirstResultDemo,
-    TheValidateHardDemo,
-    TheValidateSoftDemo,
-    TheSwitchCameraDemo,
-    TheNoTrackingDemo,
-    TheDragDropDemo
   },
 
   watch: {
@@ -122,6 +133,22 @@ export default {
   },
 
   methods: {
+    log: console.log,
+
+    async onInit (promise) {
+      this.loading = true
+
+      try {
+        await promise
+
+        this.clearErrors()
+      } catch (error) {
+        this.openError(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
     openError (error) {
       if (error.name === 'NotAllowedError') {
         this.errors.push('To detect and decode QR codes this page needs access to your camera')
@@ -158,5 +185,11 @@ export default {
 
 #app {
   padding-bottom: 15px;
+}
+
+.one-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

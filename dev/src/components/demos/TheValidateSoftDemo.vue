@@ -1,54 +1,54 @@
 <template>
-  <QrcodeReader
-    :paused="paused"
-    @decode="onDecode"
-    @init="onInit">
-    <div v-show="paused" class="validation-layer">
-      <div class="decode-result">
-        <u>Decoded</u>: {{ content }}
+  <div>
+    <p>With the <i>paused</i> prop you can process each scanned QR-code before
+    you let the user continue to scan stuff.</p>
+
+    <p>Notice how in the camera is actually still active in the background even
+    when the stream is paused? On mobile you might be able to tell from the
+    notification section. On desktop Chrome the current tab will have a
+    little red circular icon.</p>
+
+    <p class="one-line">Last result: <b>{{ result }}</b></p>
+
+    <qrcode-stream :paused="paused" @decode="onDecode" @init="$emit('init', $event)">
+      <div v-show="paused" class="validation-layer">
+        <div class="validation-notice">
+          <div v-if="validating">
+            Long validation in progress...
+          </div>
+
+          <div v-else-if="isValid" class="text-success">
+            This is a URL
+          </div>
+
+          <div v-else class="text-danger">
+            This is NOT a URL!
+          </div>
+        </div>
       </div>
-
-      <div class="validation-notice">
-        <div v-if="validating">
-          Long validation in progress...
-        </div>
-
-        <div v-else-if="isValid" class="text-success">
-          This is a URL
-        </div>
-
-        <div v-else class="text-danger">
-          This is NOT a URL!
-        </div>
-      </div>
-    </div>
-
-    <LoadingIndicator v-show="loading" />
-  </QrcodeReader>
+    </qrcode-stream>
+  </div>
 </template>
 
 <script>
-import { QrcodeReader } from 'vue-qrcode-reader'
-import InitHandler from '@/mixins/InitHandler'
+import { QrcodeStream } from 'vue-qrcode-reader'
 
 export default {
-  components: { QrcodeReader },
-
-  mixins: [ InitHandler ],
+  components: { QrcodeStream },
 
   data () {
     return {
       isValid: false,
       validating: false,
       paused: false,
-      content: null
+      result: null
     }
   },
 
   methods: {
 
     async onDecode (content) {
-      this.content = content
+      this.result = content
 
       this.pauseCamera()
 
@@ -91,7 +91,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgba(255, 255, 255, .8);
   text-align: center;
   padding: 10px;
 

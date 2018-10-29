@@ -1,48 +1,50 @@
 <template>
-  <div class="drag-and-drop-demo">
-    <QrcodeReader @detect="onDetect" :camera="false">
+  <div>
+    <p><i>vue-qrcode-reader</i> also provides a component that allows you to
+    drag-and-drop images that should be scanned. Use it as a standalone
+    feature or as a fallback for desktop users.</p>
+
+    <p class="one-line">Last result: <b>{{ result }}</b></p>
+
+    <p v-if="error !== null" class="drop-error">
+      {{ error }}
+    </p>
+
+    <qrcode-drop-zone @detect="onDetect">
       <div class="drop-area">
-
-        <div class="drop-area__info" v-if="content === null">
-          DROP IMAGES SHOWING QR CODES
-        </div>
-
-        <div class="drop-area__result" v-else>
-          {{ content }}
-        </div>
-
+        DROP SOME IMAGES HERE
       </div>
-    </QrcodeReader>
+    </qrcode-drop-zone>
   </div>
 </template>
 
 <script>
-import { QrcodeReader } from 'vue-qrcode-reader'
+import { QrcodeDropZone } from 'vue-qrcode-reader'
 
 export default {
-  components: { QrcodeReader },
+  components: { QrcodeDropZone },
 
   data () {
     return {
-      content: null
+      result: null,
+      error: null
     }
   },
 
   methods: {
     async onDetect (promise) {
       try {
-        const { source, content } = await promise
+        const { content } = await promise
 
-        if (source === 'file' || source === 'url') {
-          this.content = content
-        }
+        this.result = content
+        this.error = null
       } catch (error) {
         if (error.name === 'DropImageFetchError') {
-          this.$emit('error', error.message)
+          this.error = 'Sorry, you can\'t load cross-origin images :/'
         } else if (error.name === 'DropImageDecodeError') {
-          this.$emit('error', error.message)
+          this.error = 'Ok, that\'s not an image. That can\'t be decoded.'
         } else {
-          this.$emit('error', 'UNKNOWN ERROR: ' + error.message)
+          this.error = 'Ups, what kind of error is this?! ' + error.message
         }
       }
     }
@@ -51,18 +53,18 @@ export default {
 </script>
 
 <style>
-.drag-and-drop-demo .qrcode-reader__inner-wrapper {
-  width: 100%;
-  height: 300px;
-}
-
 .drop-area {
-  height: 100%;
+  height: 300px;
   color: #fff;
   text-align: center;
   font-weight: bold;
   padding: 10px;
 
   background-color: rgba(0,0,0,.5);
+}
+
+.drop-error {
+  color: red;
+  font-weight: bold;
 }
 </style>

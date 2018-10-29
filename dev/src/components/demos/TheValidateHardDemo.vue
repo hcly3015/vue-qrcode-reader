@@ -1,47 +1,45 @@
 <template>
-  <QrcodeReader
-    :camera="camera"
-    @decode="onDecode"
-    @init="onInitFirst">
-    <div v-show="cameraForzen" class="validation-layer">
-      <div class="decode-result">
-        <u>Decoded</u>: {{ content }}
-      </div>
+  <div>
+    <p>This demo is exactly like <i>validation (soft)</i> BUT the camera stream
+    is actually terminated and not running in the background during
+    validation.</p>
 
-      <div class="validation-notice" v-if="validating">
-        Long validation in progress...
-      </div>
+    <p class="one-line">Last result: <b>{{ result }}</b></p>
 
-      <div class="validation-result" v-if="!validating">
-        <div v-if="isValid" class="text-success">
-          This is a URL
+    <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
+      <div v-show="cameraForzen" class="validation-layer">
+        <div class="validation-notice" v-if="validating">
+          Long validation in progress...
         </div>
 
-        <div v-else class="text-danger">
-          This is NOT a URL!
+        <div class="validation-result" v-if="!validating">
+          <div v-if="isValid" class="text-success">
+            This is a URL
+          </div>
+
+          <div v-else class="text-danger">
+            This is NOT a URL!
+          </div>
         </div>
       </div>
-    </div>
-
-    <LoadingIndicator v-show="loading && firstLoad" />
-  </QrcodeReader>
+    </qrcode-stream>
+  </div>
 </template>
 
 <script>
-import { QrcodeReader } from 'vue-qrcode-reader'
-import InitHandler from '@/mixins/InitHandler'
+import { QrcodeStream } from 'vue-qrcode-reader'
 
 export default {
-  components: { QrcodeReader },
-
-  mixins: [ InitHandler ],
+  components: { QrcodeStream },
 
   data () {
     return {
       isValid: false,
       validating: false,
       camera: {},
-      content: null,
+      result: null,
+
+      loading: false,
       firstLoad: true
     }
   },
@@ -55,7 +53,7 @@ export default {
   methods: {
 
     async onDecode (content) {
-      this.content = content
+      this.result = content
 
       this.stopCamera()
 
@@ -89,8 +87,14 @@ export default {
       })
     },
 
-    async onInitFirst (promise) {
-      await this.onInit(promise)
+    async onInit (promise) {
+      if (this.firstload) {
+        this.$emit('init', promise)
+      }
+
+      this.loading = true
+      await promise
+      this.loading = false
       this.firstLoad = false
     }
 
@@ -104,7 +108,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgba(255, 255, 255, .8);
   text-align: center;
   padding: 10px;
 
